@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: This yml file creates the required network infrastructure for our application
+Parameters:
+  EnvironmentName:
+    Description: The environment name that will be prefixed to our resource
+    Type: String
+  VPCCidr:
+    Description: Our vpc cidr block
+    Type: String
+    Default: 10.0.0.0/16
+  PublicSubnetCIDR:
+    Description: The public subnet CIDR Block
+    Type: String
+    Default: 10.0.1.0/24
+  PrivateSubnetCIDR:
+    Description: The private subnet CIDR Block
+    Type: String
+    Default: 10.0.2.0/24
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCCidr
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref EnvironmentName
